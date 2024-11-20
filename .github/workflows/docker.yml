@@ -2,7 +2,9 @@ name: Build Images
 
 on:
   push:
-    branches: master
+    branches: 
+      - master
+      - docker-build-and-push
   pull_request:
       paths:
         - docker-compose.yml
@@ -11,13 +13,53 @@ on:
 jobs:
   build:
     strategy:
+      max-parallel: 3
       matrix:
         profile:
           - auto
+          - sygil
+          - invoke
           - comfy
           - download
+        include:
+          - profile: auto
+            dockertag: "sd-auto:54"
+            dockerhubtag: "sd-auto"
+          - profile: sygil
+            dockertag: "sd-sygil:16"
+            dockerhubtag: "sd-sygil"
+          - profile: invoke
+            dockertag: "sd-invoke:27"
+            dockerhubtag: "sd-invoke"
+          - profile: comfy
+            dockertag: "sd-comfy:1"
+            dockerhubtag: "sd-comfy"
+          - profile: download
+            dockertag: "webui-docker-download:latest"
+            dockerhubtag: "sd-download"
     runs-on: ubuntu-latest
     name: ${{ matrix.profile }}
     steps:
-      - uses: actions/checkout@v3
-      - run: docker compose --profile ${{ matrix.profile }} build --progress plain
+      - name: Git checkout the code.
+        uses: actions/checkout@v3
+      - name: Build the docker images.
+        run: docker compose --profile ${{ matrix.profile }} build --progress plain
+
+      - run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-7`" >> $GITHUB_ENV
+
+      - name: Login to Docker Hub
+        if: vars.DOCKERHUB_USERNAME 
+        uses: docker/login-action@v2
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME}}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Tags docker images latest
+        if: vars.DOCKERHUB_USERNAME 
+        run: docker tag ${{matrix.dockertag}} ${{vars.DOCKERHUB_USERNAME}}/${{matrix.dockerhubtag}}:latest
+      - name: Tags docker images with sha 
+        if: vars.DOCKERHUB_USERNAME 
+        run: docker tag ${{matrix.dockertag}} ${{vars.DOCKERHUB_USERNAME}}/${{matrix.dockerhubtag}}:${SHORT_SHA}
+      - name: push images to docker hub
+        if: vars.DOCKERHUB_USERNAME 
+        run: docker push --all-tags ${{vars.DOCKERHUB_USERNAME}}/${{matrix.dockerhubtag}}
