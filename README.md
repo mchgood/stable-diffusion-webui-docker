@@ -1,6 +1,6 @@
 # Stable Diffusion WebUI Docker
 
-Run Stable Diffusion on your machine with a nice UI without any hassle
+Run Stable Diffusion on your machine with a nice UI without any hassle 
 
 ## Setup & Usage
 
