@@ -17,23 +17,11 @@ jobs:
       matrix:
         profile:
           - auto
-          - sygil
-          - invoke
-          - comfy
           - download
         include:
           - profile: auto
             dockertag: "sd-auto:54"
             dockerhubtag: "sd-auto"
-          - profile: sygil
-            dockertag: "sd-sygil:16"
-            dockerhubtag: "sd-sygil"
-          - profile: invoke
-            dockertag: "sd-invoke:27"
-            dockerhubtag: "sd-invoke"
-          - profile: comfy
-            dockertag: "sd-comfy:1"
-            dockerhubtag: "sd-comfy"
           - profile: download
             dockertag: "webui-docker-download:latest"
             dockerhubtag: "sd-download"
