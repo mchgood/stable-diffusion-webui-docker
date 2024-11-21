@@ -12,7 +12,6 @@ services:
     volumes:
       - share-data:/data
       - ./output:/output
-      - ./entrypoint.sh:/docker/entrypoint.sh
     stop_signal: SIGKILL
     tty: true
     image: registry.cn-hangzhou.aliyuncs.com/gaibu/sd-auto:latest
