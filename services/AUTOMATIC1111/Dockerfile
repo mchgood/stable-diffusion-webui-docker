@@ -36,6 +36,8 @@ RUN --mount=type=cache,target=/root/.cache/pip \
   pip install -r requirements_versions.txt && \
   pip install --upgrade typing-extensions
 
+COPY ./stable-diffusion-webui/extensions-builtin/Lora/ui_extra_networks_lora.py /stable-diffusion-webui/extensions-builtin/Lora/ui_extra_networks_lora.py
+COPY ./stable-diffusion-webui/modules/sd_models.py /stable-diffusion-webui/modules/sd_models.py
 
 ENV ROOT=/stable-diffusion-webui
 
