@@ -30,7 +30,7 @@ WORKDIR /
 RUN --mount=type=cache,target=/root/.cache/pip \
   git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git && \
   git clone https://huggingface.co/openai/clip-vit-large-patch14 && \
-  mkdir -p stable-diffusion-webui/openai && cp clip-vit-large-patch14/* stable-diffusion-webui/openai && \
+  mkdir -p stable-diffusion-webui/openai/clip-vit-large-patch14 && cp clip-vit-large-patch14/* stable-diffusion-webui/openai/clip-vit-large-patch14 && \
   cd stable-diffusion-webui && \
   git reset --hard v1.9.4 && \
   pip install -r requirements_versions.txt && \
