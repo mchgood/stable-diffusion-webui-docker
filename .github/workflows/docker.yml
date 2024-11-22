@@ -17,7 +17,7 @@ jobs:
       matrix:
         profile:
           - sd_pre
-          - sd_second
+#          - sd_second
         include:
 #          - profile: auto
 #            dockertag: "sd-auto:54"
