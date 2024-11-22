@@ -9,6 +9,12 @@ on:
       paths:
         - docker-compose.yml
         - services
+env:
+  ALIYUN_REGISTRY: "${{ vars.ALIYUN_REGISTRY }}"
+  ALIYUN_NAME_SPACE: "${{ vars.ALIYUN_NAME_SPACE }}"
+  ALIYUN_REGISTRY_USER: "${{ vars.ALIYUN_REGISTRY_USER }}"
+  ALIYUN_REGISTRY_PASSWORD: "${{ secrets.ALIYUN_REGISTRY_PASSWORD }}"
+  IMG_TAG: 1.0.0
 
 jobs:
   build:
@@ -50,10 +56,16 @@ jobs:
 
       - name: Tags docker images latest
         if: vars.DOCKERHUB_USERNAME
-        run: docker tag ${{matrix.dockertag}} ${{vars.DOCKERHUB_USERNAME}}/${{matrix.dockerhubtag}}:1.0.0
+        run: docker tag ${{matrix.dockertag}} ${{vars.DOCKERHUB_USERNAME}}/${{matrix.dockerhubtag}}:$IMG_TAG
       - name: Tags docker images with sha
         if: vars.DOCKERHUB_USERNAME
         run: docker tag ${{matrix.dockertag}} ${{vars.DOCKERHUB_USERNAME}}/${{matrix.dockerhubtag}}:${SHORT_SHA}
       - name: push images to docker hub
         if: vars.DOCKERHUB_USERNAME
         run: docker push --all-tags ${{vars.DOCKERHUB_USERNAME}}/${{matrix.dockerhubtag}}
+      - name: push images to aliyun docker hub
+        run: |
+          # 登录阿里云镜像
+          docker login -u $ALIYUN_REGISTRY_USER -p $ALIYUN_REGISTRY_PASSWORD $ALIYUN_REGISTRY
+          docker tag ${{matrix.dockertag}} $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/${{matrix.dockerhubtag}}:$IMG_TAG
+          docker push $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/${{matrix.dockerhubtag}}:$IMG_TAG
