@@ -49,7 +49,7 @@ jobs:
 
       - name: Tags docker images latest
         if: vars.DOCKERHUB_USERNAME
-        run: docker tag ${{matrix.dockertag}} ${{vars.DOCKERHUB_USERNAME}}/${{matrix.dockerhubtag}}:1.0.1
+        run: docker tag ${{matrix.dockertag}} ${{vars.DOCKERHUB_USERNAME}}/${{matrix.dockerhubtag}}:1.0.0
       - name: Tags docker images with sha
         if: vars.DOCKERHUB_USERNAME
         run: docker tag ${{matrix.dockertag}} ${{vars.DOCKERHUB_USERNAME}}/${{matrix.dockerhubtag}}:${SHORT_SHA}
