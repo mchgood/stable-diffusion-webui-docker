@@ -6,7 +6,7 @@ ENV ROOT=/stable-diffusion-webui
 
 # 拷贝代码
 RUN mkdir -p ${ROOT}
-COPY ./${ROOT}/repository ${ROOT}
+COPY ./repository/${ROOT}/* ${ROOT}
 COPY ./deploy/* /docker
 
 RUN --mount=type=cache,target=/root/.cache/pip \
