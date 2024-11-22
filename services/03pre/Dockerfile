@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive PIP_PREFER_BINARY=1
 ENV ROOT=/stable-diffusion-webui
 
 # 拷贝代码
-RUN mkdir -p ${ROOT}
+RUN mkdir -p ${ROOT} && mkdir -p /docker
 COPY ./repository/${ROOT}/* ${ROOT}
 COPY ./deploy/* /docker
 
