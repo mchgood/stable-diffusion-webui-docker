@@ -1,4 +1,4 @@
-FROM pytorch/pytorch:2.3.0-cuda12.1-cudnn8-runtime
+FROM gaibu/sd-second:1.0.1
 
 # 设置使得在安装 Debian 软件包时不需要用户交互，常用于 Dockerfile 中以避免在构建过程中卡住
 ENV DEBIAN_FRONTEND=noninteractive PIP_PREFER_BINARY=1
