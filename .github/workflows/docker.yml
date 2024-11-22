@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - docker-build-and-push
+      - 1.0.0
   pull_request:
       paths:
         - docker-compose.yml
@@ -16,8 +16,7 @@ jobs:
       max-parallel: 3
       matrix:
         profile:
-          - auto
-          - download
+          - sd_second
         include:
           - profile: auto
             dockertag: "sd-auto:54"
@@ -25,6 +24,12 @@ jobs:
           - profile: download
             dockertag: "webui-docker-download:latest"
             dockerhubtag: "sd-download"
+          - profile: sd_pre
+            dockertag: "sd-pre:54"
+            dockerhubtag: "sd-pre"
+          - profile: sd_second
+            dockertag: "sd-second:54"
+            dockerhubtag: "sd-second"
     runs-on: ubuntu-latest
     name: ${{ matrix.profile }}
     steps:
@@ -44,7 +49,7 @@ jobs:
 
       - name: Tags docker images latest
         if: vars.DOCKERHUB_USERNAME
-        run: docker tag ${{matrix.dockertag}} ${{vars.DOCKERHUB_USERNAME}}/${{matrix.dockerhubtag}}:1.0.0
+        run: docker tag ${{matrix.dockertag}} ${{vars.DOCKERHUB_USERNAME}}/${{matrix.dockerhubtag}}:1.0.1
       - name: Tags docker images with sha
         if: vars.DOCKERHUB_USERNAME
         run: docker tag ${{matrix.dockertag}} ${{vars.DOCKERHUB_USERNAME}}/${{matrix.dockerhubtag}}:${SHORT_SHA}

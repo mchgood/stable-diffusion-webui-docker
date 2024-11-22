@@ -22,6 +22,18 @@ services:
     profiles: ["download"]
     volumes:
       - *v1
+  sd_second:
+    build: ./services/02second/
+    profiles: ["sd_second"]
+    image: sd-second:54
+    volumes:
+      - *v1
+  sd_pre:
+    build: ./services/03pre/
+    profiles: ["sd_pre"]
+    image: sd-pre:54
+    volumes:
+      - *v1
 
   auto: &automatic
     <<: *base_service
