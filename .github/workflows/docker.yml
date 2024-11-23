@@ -22,8 +22,8 @@ jobs:
       max-parallel: 3
       matrix:
         profile:
-#          - sd_second
-          - sd_pre
+          - sd_second
+#          - sd_pre
         include:
 #          - profile: auto
 #            dockertag: "sd-auto:54"
@@ -31,12 +31,12 @@ jobs:
 #          - profile: download
 #            dockertag: "webui-docker-download:latest"
 #            dockerhubtag: "sd-download"
-          - profile: sd_pre
-            dockertag: "sd-pre:54"
-            dockerhubtag: "sd-pre"
-#          - profile: sd_second
-#            dockertag: "sd-second:54"
-#            dockerhubtag: "sd-second"
+#          - profile: sd_pre
+#            dockertag: "sd-pre:54"
+#            dockerhubtag: "sd-pre"
+          - profile: sd_second
+            dockertag: "sd-second:54"
+            dockerhubtag: "sd-second"
     runs-on: ubuntu-latest
     name: ${{ matrix.profile }}
     steps:
