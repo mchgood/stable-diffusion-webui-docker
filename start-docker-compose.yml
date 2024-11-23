@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   model:
-    image: registry.cn-shanghai.aliyuncs.com/gaibu/hq:sd-model-data-1120
+    image: registry-vpc.cn-shanghai.aliyuncs.com/gaibu/sd-download:1.0.0
     volumes:
       - share-data:/data
     entrypoint: [ "sh", "-c","nohup ping -i 1000 127.0.0.1" ]
@@ -14,7 +14,7 @@ services:
       - ./output:/output
     stop_signal: SIGKILL
     tty: true
-    image: registry.cn-hangzhou.aliyuncs.com/gaibu/sd-auto:latest
+    image: registry-vpc.cn-shanghai.aliyuncs.com/gaibu/sd-auto:1.0.0
     environment:
       - CLI_ARGS=--allow-code --medvram --xformers --enable-insecure-extension-access --api
     runtime: nvidia  # 添加这一行
