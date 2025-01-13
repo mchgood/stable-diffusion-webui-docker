@@ -2,6 +2,7 @@ FROM pytorch/pytorch:2.3.0-cuda12.1-cudnn8-runtime
 
 # 设置使得在安装 Debian 软件包时不需要用户交互，常用于 Dockerfile 中以避免在构建过程中卡住
 ENV DEBIAN_FRONTEND=noninteractive PIP_PREFER_BINARY=1
+ENV ROOT=/stable-diffusion-webui
 
 # 准备图像处理和一般开发环境
 RUN --mount=type=cache,target=/var/cache/apt \
@@ -20,3 +21,14 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 # 准备 tcmalloc
 RUN apt-get -y install libgoogle-perftools-dev && apt-get clean
 ENV LD_PRELOAD=libtcmalloc.so
+
+# 拷贝代码
+RUN mkdir -p ${ROOT} && mkdir -p /docker
+COPY ./repository/${ROOT}/ ${ROOT}
+
+RUN --mount=type=cache,target=/root/.cache/pip \
+    cd ${ROOT} && \
+    pip install -r requirements_versions.txt -i https://mirrors.aliyun.com/pypi/simple && \
+    pip install --upgrade typing-extensions -i https://mirrors.aliyun.com/pypi/simple && \
+    sed -i 's/in_app_dir = .*/in_app_dir = True/g' /opt/conda/lib/python3.10/site-packages/gradio/routes.py  && \
+    git config --global --add safe.directory '*'

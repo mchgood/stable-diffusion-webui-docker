@@ -14,7 +14,7 @@ env:
   ALIYUN_NAME_SPACE: "${{ vars.ALIYUN_NAME_SPACE }}"
   ALIYUN_REGISTRY_USER: "${{ vars.ALIYUN_REGISTRY_USER }}"
   ALIYUN_REGISTRY_PASSWORD: "${{ secrets.ALIYUN_REGISTRY_PASSWORD }}"
-  IMG_TAG: 1.0.0
+  IMG_TAG: 2.0.0
 
 jobs:
   build:
@@ -31,9 +31,9 @@ jobs:
 #          - profile: download
 #            dockertag: "webui-docker-download:latest"
 #            dockerhubtag: "sd-download"
-#          - profile: sd_second
-#            dockertag: "sd-second:54"
-#            dockerhubtag: "sd-second"
+          - profile: sd_second
+            dockertag: "sd-second:54"
+            dockerhubtag: "sd-second"
           - profile: sd_pre
             dockertag: "sd-pre:54"
             dockerhubtag: "sd-pre"
