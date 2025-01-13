@@ -14,7 +14,7 @@ services:
       - ./output:/output
     stop_signal: SIGKILL
     tty: true
-    image: registry-vpc.cn-shanghai.aliyuncs.com/gaibu/sd-auto:1.0.0
+    image: registry-vpc.cn-shanghai.aliyuncs.com/gaibu/sd_pre:2.0.0
     environment:
       - CLI_ARGS=--allow-code --medvram --xformers --enable-insecure-extension-access --api
     runtime: nvidia  # 添加这一行
