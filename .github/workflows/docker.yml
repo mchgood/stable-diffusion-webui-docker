@@ -21,8 +21,8 @@ jobs:
       max-parallel: 3
       matrix:
         profile:
-#          - sd_second
-          - sd_pre
+          - sd_second
+ #         - sd_pre
         include:
 #          - profile: auto
 #            dockertag: "sd-auto:54"

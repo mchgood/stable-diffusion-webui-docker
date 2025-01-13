@@ -1,4 +1,4 @@
-FROM gaibu/sd-second:2.0.0
+FROM gaibu/sd-second:3.0.0
 
 # 设置使得在安装 Debian 软件包时不需要用户交互，常用于 Dockerfile 中以避免在构建过程中卡住
 ENV DEBIAN_FRONTEND=noninteractive PIP_PREFER_BINARY=1
