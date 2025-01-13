@@ -33,9 +33,9 @@ jobs:
           - profile: sd_second
             dockertag: "sd-second:54"
             dockerhubtag: "sd-second"
-          - profile: sd_pre
-            dockertag: "sd-pre:54"
-            dockerhubtag: "sd-pre"
+#          - profile: sd_pre
+#            dockertag: "sd-pre:54"
+#            dockerhubtag: "sd-pre"
 
     runs-on: ubuntu-latest
     name: ${{ matrix.profile }}
