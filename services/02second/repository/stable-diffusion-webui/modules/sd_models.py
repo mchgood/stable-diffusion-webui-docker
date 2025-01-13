@@ -19,7 +19,7 @@ import tomesd
 import numpy as np
 
 model_dir = "Stable-diffusion"
-model_path = os.path.abspath(os.path.join(paths.models_path, model_dir))
+model_path = os.getenv('SD_MODEL_PATH', os.path.abspath(os.path.join(paths.models_path, model_dir)))
 
 checkpoints_list = {}
 checkpoint_aliases = {}
