@@ -21,14 +21,3 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 # 准备 tcmalloc
 RUN apt-get -y install libgoogle-perftools-dev && apt-get clean
 ENV LD_PRELOAD=libtcmalloc.so
-
-# 拷贝代码
-RUN mkdir -p ${ROOT} && mkdir -p /docker
-COPY ./repository/${ROOT}/ ${ROOT}
-
-RUN --mount=type=cache,target=/root/.cache/pip \
-    cd ${ROOT} && \
-    pip install -r requirements_versions.txt -i https://mirrors.aliyun.com/pypi/simple && \
-    pip install --upgrade typing-extensions -i https://mirrors.aliyun.com/pypi/simple && \
-    sed -i 's/in_app_dir = .*/in_app_dir = True/g' /opt/conda/lib/python3.10/site-packages/gradio/routes.py  && \
-    git config --global --add safe.directory '*'
