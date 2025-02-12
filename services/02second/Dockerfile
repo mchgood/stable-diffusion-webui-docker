@@ -20,3 +20,9 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 # 准备 tcmalloc
 RUN apt-get -y install libgoogle-perftools-dev && apt-get clean
 ENV LD_PRELOAD=libtcmalloc.so
+
+RUN mkdir -p /env
+COPY ./env/* /env
+RUN cd /env && \
+    pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple && \
+    pip install -r requirements_wy.txt -i https://mirrors.aliyun.com/pypi/simple
