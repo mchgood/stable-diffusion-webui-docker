@@ -61,9 +61,9 @@ jobs:
       - name: Tags docker images with sha
         if: vars.DOCKERHUB_USERNAME
         run: docker tag ${{matrix.dockertag}} ${{vars.DOCKERHUB_USERNAME}}/${{matrix.dockerhubtag}}:${SHORT_SHA}
-      - name: push images to docker hub
-        if: vars.DOCKERHUB_USERNAME
-        run: docker push --all-tags ${{vars.DOCKERHUB_USERNAME}}/${{matrix.dockerhubtag}}
+#      - name: push images to docker hub
+#        if: vars.DOCKERHUB_USERNAME
+#        run: docker push --all-tags ${{vars.DOCKERHUB_USERNAME}}/${{matrix.dockerhubtag}}
       - name: push images to aliyun docker hub
         run: |
           # 登录阿里云镜像
