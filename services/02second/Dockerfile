@@ -5,6 +5,18 @@ RUN apt-get install git -y
 RUN apt-get install ffmpeg libsm6 libxext6  -y
 RUN apt-get install libgl1
 
+# 安装 Python 3.10 和 pip
+RUN apt-get install -y software-properties-common \
+    && add-apt-repository ppa:deadsnakes/ppa \
+    && apt-get update \
+    && apt-get install -y python3.10 python3.10-distutils \
+    && apt-get install -y python3.10-venv \
+    && apt-get install -y python3-pip \
+    && apt-get clean
+
+# 确保 pip 是最新的
+RUN python3.10 -m pip install --upgrade pip
+
 # 安装基础包
 RUN apt update && \
     apt install -y \
