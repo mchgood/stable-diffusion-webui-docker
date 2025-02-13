@@ -24,8 +24,6 @@ RUN apt-get install -y \
 
 # 使用 pip 安装 PyTorch 和其他库
 RUN --mount=type=cache,target=/root/.cache/pip \
-    pip install torch==1.13.1+cu116 torchvision==0.14.1+cu116 \
-    -f https://download.pytorch.org/whl/whl/cu116/torch_stable.html \
     git+https://github.com/TencentARC/GFPGAN.git@8d2447a2d918f8eba5a4a01463fd48e45126a379 \
     git+https://github.com/openai/CLIP.git@d50d76daa670286dd6cacf3bcd80b5e4823fc8e1 \
     git+https://github.com/mlfoundations/open_clip.git@v2.20.0
