@@ -13,17 +13,6 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# 尝试安装 google-perftools 作为替代
-RUN apt-get update && \
-    apt-get install -y google-perftools libgoogle-perftools-dev && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# 暴露 tcmalloc 环境变量
-ENV LD_PRELOAD=libtcmalloc.so
-
-# 确保 pip 安装并升级
-RUN python3 -m ensurepip && python3 -m pip install --upgrade pip
-
 # 使用 pip 安装 GitHub 上的库
 RUN pip install \
     git+https://github.com/TencentARC/GFPGAN.git@8d2447a2d918f8eba5a4a01463fd48e45126a379 \
