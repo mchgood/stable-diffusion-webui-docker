@@ -37,7 +37,7 @@ defusedxml==0.7.1
 diffusers==0.19.3
 easydict==1.11
 einops==0.4.1
-elasticsearch==7.10.0
+elasticsearch==8.17.0
 exceptiongroup==1.1.2
 executing==1.2.0
 facexlib==0.3.0

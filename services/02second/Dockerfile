@@ -7,7 +7,7 @@ ENV PIP_NUM_PARALLEL_DOWNLOADS=3
 
 # 更新 apt 源并安装必要的工具和库
 RUN apt-get update && \
-    apt-get install -y git ffmpeg libsm6 libxext6 libgl1 \
+    apt-get install -y git ffmpeg libsm6 libxext6 libgl1 curl \
     wget build-essential zlib1g-dev libncurses5-dev libgdbm-dev \
     libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev \
     libbz2-dev liblzma-dev && \
