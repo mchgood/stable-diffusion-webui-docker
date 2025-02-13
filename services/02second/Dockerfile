@@ -1,18 +1,20 @@
-FROM pytorch/pytorch:2.3.0-cuda12.1-cudnn8-runtime
+FROM nvidia/cuda:11.6.2-devel-ubuntu18.04
 
-# 设置使得在安装 Debian 软件包时不需要用户交互，常用于 Dockerfile 中以避免在构建过程中卡住
-ENV DEBIAN_FRONTEND=noninteractive PIP_PREFER_BINARY=1
+RUN apt-get update
+RUN apt-get install git -y
+RUN apt-get install ffmpeg libsm6 libxext6  -y
+RUN apt-get install libgl1
 
-# 准备图像处理和一般开发环境
-RUN --mount=type=cache,target=/var/cache/apt \
-  apt-get update && \
-  # we need those
-  apt-get install -y fonts-dejavu-core rsync jq moreutils git \
-  # extensions needs those
-  ffmpeg libglfw3-dev libgles2-mesa-dev pkg-config libcairo2 libcairo2-dev build-essential
+# 安装基础包
+RUN apt update && \
+    apt install -y \
+        wget build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev \
+        libreadline-dev libffi-dev libsqlite3-dev libbz2-dev liblzma-dev && \
+    apt clean && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN --mount=type=cache,target=/root/.cache/pip \
-  pip install pyngrok xformers==0.0.26.post1 -i https://mirrors.aliyun.com/pypi/simple \
+  pip install torch==1.13.1+cu116 torchvision==0.14.1+cu116 -f https://download.pytorch.org/whl/whl/cu116/torch_stable.html \
   git+https://github.com/TencentARC/GFPGAN.git@8d2447a2d918f8eba5a4a01463fd48e45126a379 \
   git+https://github.com/openai/CLIP.git@d50d76daa670286dd6cacf3bcd80b5e4823fc8e1 \
   git+https://github.com/mlfoundations/open_clip.git@v2.20.0
