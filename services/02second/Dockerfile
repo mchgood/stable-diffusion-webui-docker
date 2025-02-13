@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.6.2-devel-ubuntu20.04
+FROM pytorch/pytorch:1.13.1-cuda11.6-cudnn8-runtime
 
 # 设置环境变量以避免 tzdata 交互式配置
 ENV DEBIAN_FRONTEND=noninteractive
@@ -14,19 +14,6 @@ RUN apt-get install -y tzdata \
 
 # 安装 git 和其他依赖
 RUN apt-get install -y git ffmpeg libsm6 libxext6 libgl1
-
-# 安装 Python 3.10 和 pip
-RUN apt-get install -y software-properties-common \
-    && add-apt-repository ppa:deadsnakes/ppa \
-    && apt-get update \
-    && apt-get install -y python3.10 python3-pip \
-    && apt-get install -y python3-venv \
-    && apt-get clean
-
-# 提供 distutils
-RUN apt-get install -y python3.10-dev \
-    && python3.10 -m ensurepip \
-    && python3.10 -m pip install --upgrade pip setuptools
 
 # 安装其他基础库
 RUN apt-get install -y \
