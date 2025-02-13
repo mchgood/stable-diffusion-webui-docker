@@ -13,6 +13,14 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# 尝试安装 google-perftools 作为替代
+RUN apt-get update && \
+    apt-get install -y google-perftools libgoogle-perftools-dev && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# 暴露 tcmalloc 环境变量
+ENV LD_PRELOAD=libtcmalloc.so
+
 # 确保 pip 安装并升级
 RUN python3 -m ensurepip && python3 -m pip install --upgrade pip
 
@@ -21,11 +29,6 @@ RUN pip install \
     git+https://github.com/TencentARC/GFPGAN.git@8d2447a2d918f8eba5a4a01463fd48e45126a379 \
     git+https://github.com/openai/CLIP.git@d50d76daa670286dd6cacf3bcd80b5e4823fc8e1 \
     git+https://github.com/mlfoundations/open_clip.git@v2.20.0
-
-# 准备 tcmalloc
-RUN apt-get -y install libgoogle-perftools-dev && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
 
 # 创建环境目录并安装其他依赖
 RUN mkdir -p /env
