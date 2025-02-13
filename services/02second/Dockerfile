@@ -3,6 +3,7 @@ FROM pytorch/pytorch:1.13.1-cuda11.6-cudnn8-runtime
 # 设置环境变量以避免 tzdata 交互式配置
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TIMEZONE=Asia/Shanghai
+ENV PIP_NUM_PARALLEL_DOWNLOADS=3
 
 # 更新 apt 源并安装必要的工具和库
 RUN apt-get update && \
@@ -22,4 +23,4 @@ RUN pip install \
 # 创建环境目录并安装其他依赖
 RUN mkdir -p /env
 COPY ./env/requirements_wy.txt /env/
-RUN pip install -r /env/requirements_wy.txt -i https://mirrors.aliyun.com/pypi/simple
+RUN pip install -r /env/requirements_wy.txt
