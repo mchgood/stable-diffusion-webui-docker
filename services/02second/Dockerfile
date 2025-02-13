@@ -2,7 +2,7 @@ FROM nvidia/cuda:11.6.2-devel-ubuntu20.04  # 或者你选择的基础镜像
 
 # 设置环境变量以避免 tzdata 交互式配置
 ENV DEBIAN_FRONTEND=noninteractive
-ENV TIMEZONE=Asia/Shanghai  # 设置为中国标准时间
+ENV TIMEZONE=Asia/Shanghai
 
 # 更新 apt 源
 RUN apt-get update
