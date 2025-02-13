@@ -1,7 +1,16 @@
-FROM nvidia/cuda:11.6.2-devel-ubuntu20.04
+FROM nvidia/cuda:11.6.2-devel-ubuntu20.04  # 或者你选择的基础镜像
+
+# 设置环境变量以避免 tzdata 交互式配置
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TIMEZONE=Asia/Shanghai  # 设置为中国标准时间
 
 # 更新 apt 源
 RUN apt-get update
+
+# 安装 tzdata 并配置时区
+RUN apt-get install -y tzdata \
+    && ln -fs /usr/share/zoneinfo/$TIMEZONE /etc/localtime \
+    && dpkg-reconfigure -f noninteractive tzdata
 
 # 安装 git 和其他依赖
 RUN apt-get install -y git ffmpeg libsm6 libxext6 libgl1
@@ -13,6 +22,11 @@ RUN apt-get install -y software-properties-common \
     && apt-get install -y python3.10 python3-pip \
     && apt-get install -y python3-venv \
     && apt-get clean
+
+# 提供 distutils
+RUN apt-get install -y python3.10-dev \
+    && python3.10 -m ensurepip \
+    && python3.10 -m pip install --upgrade pip setuptools
 
 # 安装其他基础库
 RUN apt-get install -y \
