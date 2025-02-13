@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.6.2-devel-ubuntu18.04
+FROM nvidia/cuda:11.6.2-devel-ubuntu20.04
 
 # 更新 apt 源
 RUN apt-get update
@@ -13,11 +13,6 @@ RUN apt-get install -y software-properties-common \
     && apt-get install -y python3.10 python3-pip \
     && apt-get install -y python3-venv \
     && apt-get clean
-
-# 提供 distutils
-RUN apt-get install -y python3.10-dev \
-    && python3.10 -m ensurepip \
-    && python3.10 -m pip install --upgrade pip setuptools
 
 # 安装其他基础库
 RUN apt-get install -y \
