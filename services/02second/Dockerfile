@@ -6,6 +6,4 @@ ENV ROOT=/app
 
 COPY ./requirements.txt ./requirements.txt
 
-RUN --mount=type=cache,target=/root/.cache/pip \
-    cd ${ROOT} && \
-    pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
+RUN pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
