@@ -4,10 +4,6 @@ FROM pytorch/pytorch:1.13.1-cuda11.6-cudnn8-runtime
 ENV DEBIAN_FRONTEND=noninteractive PIP_PREFER_BINARY=1
 ENV ROOT=/app
 
-# 准备 tcmalloc
-RUN apt-get -y install libgoogle-perftools-dev && apt-get clean
-ENV LD_PRELOAD=libtcmalloc.so
-
 COPY ./requirements.txt ./requirements.txt
 
 RUN --mount=type=cache,target=/root/.cache/pip \
