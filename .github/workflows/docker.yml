@@ -3,7 +3,7 @@ name: Build Images
 on:
   push:
     branches:
-      - 3.0.0
+      - 4.0.0
   pull_request:
       paths:
         - docker-compose.yml
