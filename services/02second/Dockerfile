@@ -4,6 +4,9 @@ FROM pytorch/pytorch:1.13.1-cuda11.6-cudnn8-runtime
 ENV DEBIAN_FRONTEND=noninteractive PIP_PREFER_BINARY=1
 ENV ROOT=/app
 
-COPY ./requirements.txt ./requirements.txt
+RUN mkdir -p ${ROOT}
+COPY ./requirements.txt /app/requirements.txt
 
-RUN pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
+RUN --mount=type=cache,target=/root/.cache/pip  \
+    cd ${ROOT} && \
+    pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
