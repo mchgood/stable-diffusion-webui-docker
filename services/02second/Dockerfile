@@ -8,24 +8,6 @@ ENV ROOT=/app
 RUN --mount=type=cache,target=/var/cache/apt \
   apt-get update && \
   # we need those
-  apt-get install -y fonts-dejavu-core rsync jq moreutils git \
+  apt-get install -y fonts-dejavu-core rsync jq moreutils git vim \
   # extensions needs those
   ffmpeg libglfw3-dev libgles2-mesa-dev pkg-config libcairo2 libcairo2-dev build-essential
-
-RUN --mount=type=cache,target=/root/.cache/pip \
-  pip install pyngrok xformers==0.0.26.post1 -i https://mirrors.aliyun.com/pypi/simple \
-  git+https://github.com/TencentARC/GFPGAN.git@8d2447a2d918f8eba5a4a01463fd48e45126a379 \
-  git+https://github.com/openai/CLIP.git@d50d76daa670286dd6cacf3bcd80b5e4823fc8e1 \
-  git+https://github.com/mlfoundations/open_clip.git@v2.20.0
-
-# 准备 tcmalloc
-RUN apt-get -y install libgoogle-perftools-dev && apt-get clean
-ENV LD_PRELOAD=libtcmalloc.so
-
-
-RUN mkdir -p ${ROOT}
-COPY ./requirements.txt /app/requirements.txt
-
-RUN --mount=type=cache,target=/root/.cache/pip  \
-    cd ${ROOT} && \
-    pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
