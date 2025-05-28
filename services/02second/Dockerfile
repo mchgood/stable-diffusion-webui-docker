@@ -20,4 +20,4 @@ ADD ./app /app
 
 WORKDIR /app
 
-RUN $HOME/.local/bin/uv sync --frozen
+RUN $HOME/.local/bin/uv sync
