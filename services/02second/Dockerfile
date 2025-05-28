@@ -4,10 +4,20 @@ FROM pytorch/pytorch:1.13.1-cuda11.6-cudnn8-runtime
 ENV DEBIAN_FRONTEND=noninteractive PIP_PREFER_BINARY=1
 ENV ROOT=/app
 
-# 准备图像处理和一般开发环境
-RUN --mount=type=cache,target=/var/cache/apt \
-  apt-get update && \
-  # we need those
-  apt-get install -y fonts-dejavu-core rsync jq moreutils git vim \
-  # extensions needs those
-  ffmpeg libglfw3-dev libgles2-mesa-dev pkg-config libcairo2 libcairo2-dev build-essential
+# 安装程序需要 curl（和证书）来下载发布归档
+RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates
+
+# 下载最新的安装程序
+ADD https://astral.sh/uv/install.sh /uv-installer.sh
+
+# 运行安装程序，然后将其删除
+RUN sh /uv-installer.sh && rm /uv-installer.sh && mkdir /app
+
+# 确保安装的二进制文件在 PATH 中
+ENV PATH="/root/.cargo/bin/:$PATH"
+
+ADD ./app /app
+
+WORKDIR /app
+
+RUN uv sync --frozen
