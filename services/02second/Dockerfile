@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive PIP_PREFER_BINARY=1
 ENV ROOT=/app
 
 # 安装程序需要 curl（和证书）来下载发布归档
-RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates
+RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates vim
 
 # 下载最新的安装程序
 ADD https://astral.sh/uv/install.sh /uv-installer.sh
