@@ -8,5 +8,20 @@ dependencies = [
   "fastapi>=0.115.12",
   "loguru>=0.7.3",
   "uvicorn>=0.34.2",
-  "torch"
+  "torch",
+  "pydantic",
+  "Pillow",
+  "cn_clip",
+  "modelscope",
+  "datasets",
+  "opencv-python",
+  "decord",
+  "librosa",
+  "fairseq",
+  "unicodedata2",
+  "zhconv",
+  "rapidfuzz",
+  "pika",
+  "pymilvus",
+  "opencv-python-headless"
 ]
