@@ -7,6 +7,10 @@ ENV ROOT=/app
 # 安装程序需要 curl（和证书）来下载发布归档
 RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates vim
 
+RUN pip install flagembedding>=1.3.4 fastapi>=0.115.12 loguru>=0.7.3 uvicorn>=0.34.2
+
+RUN pip install onnxruntime-gpu==1.18.1 --extra-index-url https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/
+
 # 下载最新的安装程序
 ADD https://astral.sh/uv/install.sh /uv-installer.sh
 
