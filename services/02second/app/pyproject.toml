@@ -23,5 +23,6 @@ dependencies = [
   "rapidfuzz",
   "pika",
   "pymilvus",
-  "opencv-python-headless"
+  "opencv-python-headless",
+  "optimum[onnxruntime]"
 ]
