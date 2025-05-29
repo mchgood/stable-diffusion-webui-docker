@@ -3,7 +3,7 @@ name: Build Images
 on:
   push:
     branches:
-      - 4.0.0
+      - 4.0.0-base
   pull_request:
       paths:
         - docker-compose.yml
@@ -13,7 +13,7 @@ env:
   ALIYUN_NAME_SPACE: "${{ vars.ALIYUN_NAME_SPACE }}"
   ALIYUN_REGISTRY_USER: "${{ vars.ALIYUN_REGISTRY_USER }}"
   ALIYUN_REGISTRY_PASSWORD: "${{ secrets.ALIYUN_REGISTRY_PASSWORD }}"
-  IMG_TAG: 4.0.0
+  IMG_TAG: 4.0.0-base
 
 jobs:
   build:
